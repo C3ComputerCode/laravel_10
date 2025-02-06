@@ -16,7 +16,8 @@ class ArticleController extends Controller
 
         // ];
 
-        $data = Article::all();
+        // $data = Article::all();
+        $data = Article::latest()->paginate(3);
 
         return view("articles.index",[
             'articles' => $data

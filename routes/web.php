@@ -35,3 +35,7 @@ Route::get("/articles/detail",function(){
 //     return "article detail ".$id;
 // });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
