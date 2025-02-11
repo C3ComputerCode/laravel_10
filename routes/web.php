@@ -24,6 +24,16 @@ Route::get('/', function () {
 // });
 
 Route::get('/articles',[ArticleController::class,"index"]);
+Route::get('/articles/add',[ArticleController::class,"add"]);
+Route::post('/articles/add',[ArticleController::class,"create"]);
+Route::get('/articles/delete/{id}',[ArticleController::class,"delete"]);
+
+Route::get('/articles/update/{id}',[ArticleController::class,"edit"]);
+Route::put('/articles/update/{id}',[ArticleController::class,"update"])->name('article.update');
+
+
+
+
 
 Route::get('/articles/detail/{id}',[ArticleController::class,"detail"]);
 
@@ -39,3 +49,4 @@ Route::get("/articles/detail",function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
