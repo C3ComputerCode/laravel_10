@@ -41,6 +41,17 @@
                             + Add Article
                         </a>
                         </li>
+                        <li class="nav-item">
+                        <a href='{{route("category.index")}}' class="nav-link text-success">
+                            Category 
+                        </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href='{{route("category.add")}}' class="nav-link text-success">
+                            + Add Category
+                        </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

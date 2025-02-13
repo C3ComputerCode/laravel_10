@@ -95,24 +95,16 @@ class ArticleController extends Controller
 
 
     public function update($id, Request $request ,Article $article){
+                      
+        $article = Article::find($id);
         
-        // return $request; 
-        // $article = new Article;
-        // $article->title = $request->title;
-        // $article->body = $request->body;
-        // $article->category_id = $request->category_id;
+        $article->title = $request->title;
+        $article->body = $request->body;
+        $article->category_id = $request->category_id;
 
-        // $article->update();
+        $article->update();
 
-
-        $article->update([
-            'title' => $request->title,
-            'body' => $request->body,
-            'category_id' => $request->cateogry_id
-        ]);
-
-
-        return redirect("/articles");
+       return redirect("/articles");
     }
 
 
