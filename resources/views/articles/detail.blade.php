@@ -17,10 +17,21 @@
   
 
             <a class="btn btn-warning"
- href="{{ url("/articles/delete/$article->id") }}">
- Delete
- </a>
+                href="{{ url("/articles/delete/$article->id") }}">
+                Delete
+            </a>
         </div>
+    </div>
+
+    <div class="card p-3">
+        <div class="card-title">Comment List</div>
+        <form action="">
+        <div class="mb-3">
+            <label for="content" class="form-label">Comment</label>
+            <textarea name="content" class="form-control"></textarea>
+        </div>
+        <input type="submit" value="Comment" class="btn btn-primary">
+        </form>
     </div>
 
  

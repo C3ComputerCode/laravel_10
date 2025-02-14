@@ -38,6 +38,9 @@ Route::get('/category/add',[CategoryController::class,'add'])->name('category.ad
 Route::post('/category/add',[CategoryController::class,'create'])->name('category.create');
 Route::get('/category/delete/{id}',[CategoryController::class,'delete'])->name('category.delete');
 
+Route::get('/category/update/{id}',[CategoryController::class,'edit'])->name('category.edit');
+Route::put('/category/update/{id}',[CategoryController::class,'update'])->name('category.update');
+
 
 Route::get('/articles/detail/{id}',[ArticleController::class,"detail"]);
 

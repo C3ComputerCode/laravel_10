@@ -20,7 +20,7 @@
             <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$category->name}}</td>
-                    <td> <a href="" class="btn btn-warning">Edit</a>
+                    <td> <a href='{{url("/category/update/$category->id")}}' class="btn btn-warning">Edit</a>
                         <a href='{{url("/category/delete/$category->id")}}' class="btn btn-danger">Delete</a>
                     </td>
             </tr>

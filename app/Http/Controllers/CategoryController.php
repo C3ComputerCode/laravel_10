@@ -30,13 +30,23 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = validator($request->all(),[
-            'name'=>'required',            
+        // $validator = validator($request->all(),[
+        //     'name'=>'required',            
+        // ]);
+
+        $validated  = $request->validate([
+            'name' => 'required|unique:categories|min:3',            
+        ],[
+            'name.required' => 'စာလေးတော့ထည့်ပါ...',
+            'name.min' => 'အနည်းဆုံး ၃ လုံးလောက်တော့ရေးပေးပါ...',
+            'name.unique' => 'ရှိပြီးသားစာသားဖြစ်နေလို့ပါ...'
         ]);
 
-        if($validator->fails()) {
-            return back()->withErrors($validator);
-        }
+       
+
+        // if($validator->fails()) {
+        //     return back()->withErrors($validator);
+        // }
 
         $category = new Category;
 
@@ -56,17 +66,31 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Category $category,$id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('category.edit',compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Category $category,$id)
     {
-        //
+        $category = Category::find($id);
+
+        $validated  = $request->validate([
+            'name' => 'required |min:3 |unique:categories,name,' . $request->id,            
+        ],[
+            'name.required' => 'စာလေးတော့ထည့်ပါ...',
+            'name.min' => 'အနည်းဆုံး ၃ လုံးလောက်တော့ရေးပေးပါ...',
+            'name.unique' => 'ရှိပြီးသားစာသားဖြစ်နေလို့ပါ...'
+        ]);
+
+        $category->name = $request->name;
+        $category->update();
+        return redirect("/category")->with('info',"Category Updated. ");        
     }
 
     /**
@@ -77,6 +101,6 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category -> delete();
 
-        return redirect("/category");
+        return redirect("/category")->with('info','Category Deleted');
     }
 }
