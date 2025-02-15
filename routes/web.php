@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,7 @@ Route::get("/articles/detail",function(){
 //     return "article detail ".$id;
 // });
 
+Route::resource('/comments', CommentController::class);
 
 Auth::routes();
 

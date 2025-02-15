@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
-
-
+use App\Models\Comment;
 
 class ArticleController extends Controller
 {
@@ -26,6 +25,8 @@ class ArticleController extends Controller
     }
 
     public function detail($id){
+        // $comments = Comment::all();
+      
         $data = Article::find($id);
         return view('articles.detail',[
             'article' => $data

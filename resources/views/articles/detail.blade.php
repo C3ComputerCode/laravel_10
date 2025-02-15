@@ -23,13 +23,29 @@
         </div>
     </div>
 
+    <h1>Comment : ({{ count($article->comments) }})</h1>
+
     <div class="card p-3">
-        <div class="card-title">Comment List</div>
-        <form action="">
+        @foreach($article->comments as $comment )
+            <div class="card mb-2">
+                <div class="card-body">
+                <p class="card-text"> {{$comment->content}} </p>
+                </div>
+            </div>
+        @endforeach
+        
+        
+       
+        <form  method="POST" action='{{route("comments.store")}}' >
+         @csrf
+            
         <div class="mb-3">
             <label for="content" class="form-label">Comment</label>
             <textarea name="content" class="form-control"></textarea>
         </div>
+
+        <input type="hidden" name="article_id" value="{{$article->id}}"> 
+
         <input type="submit" value="Comment" class="btn btn-primary">
         </form>
     </div>
