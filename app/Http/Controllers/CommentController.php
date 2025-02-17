@@ -28,6 +28,13 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $validated  = $request->validate([
+            'content' => 'required |min:3 |unique:comments,',            
+        ],[
+            'content.required' => 'စာလေးတော့ထည့်ပါ...',
+            'content.min' => 'အနည်းဆုံး ၃ လုံးလောက်တော့ရေးပေးပါ...',
+            'content.unique' => 'ရှိပြီးသားစာသားဖြစ်နေလို့ပါ...'
+        ]);
         $comment = new Comment;
         $comment->content = $request->content;
         $comment->article_id = $request->article_id;
@@ -56,7 +63,21 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $id = $comment->id;
+
+        $validated  = $request->validate([
+            'content' => 'required |min:3 |unique:comments,content,' . $request->id,            
+        ],[
+            'content.required' => 'စာလေးတော့ထည့်ပါ...',
+            'content.min' => 'အနည်းဆုံး ၃ လုံးလောက်တော့ရေးပေးပါ...',
+            'content.unique' => 'ရှိပြီးသားစာသားဖြစ်နေလို့ပါ...'
+        ]);
+
+        $comment = Comment::find($id);
+        $comment->content = $request->content;
+        $comment->article_id = $request->article_id;
+        $comment->update();
+        return back()->with('info',"Comment is updated.");
     }
 
     /**

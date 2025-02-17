@@ -37,7 +37,41 @@
             <div class="card-body d-flex justify-content-between">
                 <p class="card-text"> {{$comment->content}} </p>
                 <div class="d-flex align-items-center gap-2">
-                    <a href='{{route("comments.edit",$comment->id)}}' class=" btn btn-sm btn-warning">Edit</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentEdit{{$comment->id}}">
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+    <div class="modal fade" id="commentEdit{{$comment->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Comment Edit</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <form action='{{route("comments.update",$comment->id)}}' method="POST">
+                    @csrf
+                    @method("PUT")
+                     <div class="mb-3">
+                     <textarea name="content" id="" class="form-control"> {{$comment->content}} </textarea>
+                     </div>
+                     <input type="hidden" name="article_id" value="{{$article->id}}">
+
+                     <div class="mb-3">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     <input type="submit" value="Comment Updated" class="btn btn-primary">
+                     </div>
+                    </form>
+                   
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+                    <!-- <a href='{{route("comments.edit",$comment->id)}}' class=" btn btn-sm btn-warning"
+                        data-bs-toggle="modal" data-bs-target="#commentEdit{{ $comment->id }}">Edit</a> -->
                     <form action='{{route("comments.destroy",$comment->id)}}' method="POST">
                         @csrf
                         @method("DELETE")
@@ -46,6 +80,10 @@
                 </div>
             </div>
         </div>
+
+
+        
+
         @endforeach
 
 
@@ -64,6 +102,12 @@
         </form>
     </div>
 
+    <!-- Button Edit modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+    
 
 
 
