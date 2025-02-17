@@ -48,7 +48,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        return $comment;
     }
 
     /**
@@ -63,7 +63,10 @@ class CommentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Comment $comment)
-    {
-        //
+    {   
+        $id = $comment->id;
+        $comment = Comment::find($id);
+        $comment->delete();
+        return back()->with('info',"Comment is Deleted.");
     }
 }
