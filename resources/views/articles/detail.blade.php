@@ -31,6 +31,8 @@
 
     <h1>Comment : ({{ count($article->comments) }})</h1>
 
+
+
     <div class="card p-3">
         @foreach($article->comments as $comment )
         <div class="card mb-2">
@@ -41,34 +43,56 @@
                         Edit
                     </button>
 
-                    <!-- Modal -->
-    <div class="modal fade" id="commentEdit{{$comment->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Comment Edit</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   <form action='{{route("comments.update",$comment->id)}}' method="POST">
-                    @csrf
-                    @method("PUT")
-                     <div class="mb-3">
-                     <textarea name="content" id="" class="form-control"> {{$comment->content}} </textarea>
-                     </div>
-                     <input type="hidden" name="article_id" value="{{$article->id}}">
+                    @if ($errors->any())
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var modalId = "{{$comment->id}}";
+                            console.log("ModelError");
+                            console.log(modalId);
+                         
+                            if (modalId) {
+                                var myModal = new bootstrap.Modal(document.getElementById('commentEdit'+ modalId));
+                                myModal.show();
+                            }
+                        });
+                    </script>
+                    @endif
 
-                     <div class="mb-3">
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <input type="submit" value="Comment Updated" class="btn btn-primary">
-                     </div>
-                    </form>
-                   
-                </div>
-                
-            </div>
-        </div>
-    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="commentEdit{{$comment->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Comment Edit</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action='{{route("comments.update",$comment->id)}}' method="POST">
+                                        @csrf
+                                        @method("PUT")
+                                        <div class="mb-3">
+                                            <textarea name="content" id="" class="form-control
+                                            @error('content') is-invalid @enderror"> {{old("content",$comment->content)}} </textarea>
+                                        </div>
+                                        @error('content')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                        <input type="hidden" name="article_id" value="{{$article->id}}">
+
+                                        <div class="mb-3">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <input type="submit" value="Comment Updated" class="btn btn-primary">
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                     <!-- <a href='{{route("comments.edit",$comment->id)}}' class=" btn btn-sm btn-warning"
                         data-bs-toggle="modal" data-bs-target="#commentEdit{{ $comment->id }}">Edit</a> -->
@@ -82,7 +106,7 @@
         </div>
 
 
-        
+
 
         @endforeach
 
@@ -107,7 +131,7 @@
   Launch demo modal
 </button> -->
 
-    
+
 
 
 

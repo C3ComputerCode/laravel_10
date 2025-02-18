@@ -73,6 +73,8 @@ class CommentController extends Controller
             'content.unique' => 'ရှိပြီးသားစာသားဖြစ်နေလို့ပါ...'
         ]);
 
+        return $request;
+
         $comment = Comment::find($id);
         $comment->content = $request->content;
         $comment->article_id = $request->article_id;

@@ -15,6 +15,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
     <div id="app">
@@ -97,5 +99,23 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+    if (typeof bootstrap !== 'undefined') {
+        console.log('Bootstrap is ready to use!');
+    } else {
+        console.error('Bootstrap not found!');
+    }
+});
+    </script>
 </body>
 </html>
