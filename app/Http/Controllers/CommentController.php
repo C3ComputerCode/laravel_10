@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {   
+        return $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +33,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $validated  = $request->validate([
-            'content' => 'required |min:3 |unique:comments,',            
+            'content' => 'required |min:3 |unique:comments,content',            
         ],[
             'content.required' => 'စာလေးတော့ထည့်ပါ...',
             'content.min' => 'အနည်းဆုံး ၃ လုံးလောက်တော့ရေးပေးပါ...',
@@ -38,6 +42,7 @@ class CommentController extends Controller
         $comment = new Comment;
         $comment->content = $request->content;
         $comment->article_id = $request->article_id;
+        $comment->user_id = auth()->user()->id;
         $comment->save();
         return back();
     }
@@ -66,14 +71,14 @@ class CommentController extends Controller
         $id = $comment->id;
 
         $validated  = $request->validate([
-            'content' => 'required |min:3 |unique:comments,content,' . $request->id,            
+            'content' => 'required |min:3 |unique:comments,content,',            
         ],[
             'content.required' => 'စာလေးတော့ထည့်ပါ...',
             'content.min' => 'အနည်းဆုံး ၃ လုံးလောက်တော့ရေးပေးပါ...',
             'content.unique' => 'ရှိပြီးသားစာသားဖြစ်နေလို့ပါ...'
         ]);
 
-        return $request;
+        // return $request;
 
         $comment = Comment::find($id);
         $comment->content = $request->content;

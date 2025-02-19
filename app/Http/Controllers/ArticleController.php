@@ -8,6 +8,11 @@ use App\Models\Comment;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware("auth")->except(['index','detail']);
+    }
+
     public function index(){
         // $data = [
         //     [ "id" => 1, "title" => "First Article" ],

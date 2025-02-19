@@ -26,7 +26,7 @@ Route::get('/', function () {
 // });
 
 Route::get('/articles',[ArticleController::class,"index"]);
-Route::get('/articles/add',[ArticleController::class,"add"]);
+Route::get('/articles/add',[ArticleController::class,"add"])->middleware('auth');
 Route::post('/articles/add',[ArticleController::class,"create"]);
 Route::get('/articles/delete/{id}',[ArticleController::class,"delete"]);
 
