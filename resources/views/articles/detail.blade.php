@@ -106,13 +106,15 @@
 
                         <!-- <a href='{{route("comments.edit",$comment->id)}}' class=" btn btn-sm btn-warning"
                         data-bs-toggle="modal" data-bs-target="#commentEdit{{ $comment->id }}">Edit</a> -->
+                     
+
                         @auth
-                        <form action='{{route("comments.destroy",$comment->id)}}' method="POST">
-                            @csrf
-                            @method("DELETE")
-                            <input type="submit" value="Del" class="btn btn-sm btn-danger">
-                        </form>
-                        @endauth
+                            <form action='{{route("comments.destroy",$comment->id)}}' method="POST">
+                                @csrf
+                                @method("DELETE")
+                                <input type="submit" value="Del" class="btn btn-sm btn-danger">
+                            </form>
+                            @endauth
                     </div>
                 </div>
             </div>

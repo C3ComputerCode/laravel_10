@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -70,6 +71,11 @@ class CommentController extends Controller
     {
         $id = $comment->id;
 
+        if (! Gate::allows('update-comment', $comment)) {
+            abort(403,$message = "Unauthorize..");
+        }
+
+
         $validated  = $request->validate([
             'content' => 'required |min:3 |unique:comments,content,',            
         ],[
@@ -94,6 +100,10 @@ class CommentController extends Controller
     {   
         $id = $comment->id;
         $comment = Comment::find($id);
+
+        if(Gate::denies("delete-comment",$comment)){
+            return abort(403,$message="Not Allow...");
+        }
         $comment->delete();
         return back()->with('info',"Comment is Deleted.");
     }
